@@ -33,9 +33,13 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         val service = HelperMethods.service
 
-
         sign_up.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
+
+        admin_login_btn.setOnClickListener {
+            val intent = Intent(this, AdminActivity::class.java)
             startActivity(intent)
         }
 

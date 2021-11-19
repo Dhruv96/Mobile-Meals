@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/adminOptionsFragment">
+
+    <fragment
+        android:id="@+id/adminOptionsFragment"
+        android:name="com.example.mobilemeals.fragments.AdminOptionsFragment"
+        android:label="fragment_admin_options"
+        tools:layout="@layout/fragment_admin_options" >
+        <action
+            android:id="@+id/action_adminOptionsFragment_to_addRestaurantFragment"
+            app:destination="@id/addRestaurantFragment" />
+        <action
+            android:id="@+id/action_adminOptionsFragment_to_addMealFragment"
+            app:destination="@id/addMealFragment" />
+        <action
+            android:id="@+id/action_adminOptionsFragment_to_viewMealsFragment"
+            app:destination="@id/viewMealsFragment" />
+        <action
+            android:id="@+id/action_adminOptionsFragment_to_viewRestaurantsFragment"
+            app:destination="@id/viewRestaurantsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addRestaurantFragment"
+        android:name="com.example.mobilemeals.fragments.AddRestaurantFragment"
+        android:label="fragment_add_restaurant"
+        tools:layout="@layout/fragment_add_restaurant" />
+    <fragment
+        android:id="@+id/addMealFragment"
+        android:name="com.example.mobilemeals.fragments.AddMealFragment"
+        android:label="fragment_add_meal"
+        tools:layout="@layout/fragment_add_meal" />
+    <fragment
+        android:id="@+id/viewMealsFragment"
+        android:name="com.example.mobilemeals.fragments.ViewMealsFragment"
+        android:label="fragment_view_meals"
+        tools:layout="@layout/fragment_view_meals" />
+    <fragment
+        android:id="@+id/viewRestaurantsFragment"
+        android:name="com.example.mobilemeals.fragments.ViewRestaurantsFragment"
+        android:label="fragment_view_restaurants"
+        tools:layout="@layout/fragment_view_restaurants" />
+</navigation>

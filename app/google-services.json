@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "28052755947",
+    "project_id": "mobile-meals-6775a",
+    "storage_bucket": "mobile-meals-6775a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28052755947:android:8cd7da9214df3bca66f5ae",
+        "android_client_info": {
+          "package_name": "com.example.mobilemeals"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28052755947-6n1sp1ub3jei4c8aat7v7gahojh86e4q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_VmXEQczqQtnD2wS2KIW-BRzqki9hTG0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "28052755947-6n1sp1ub3jei4c8aat7v7gahojh86e4q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

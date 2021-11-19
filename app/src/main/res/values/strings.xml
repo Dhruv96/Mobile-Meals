@@ -11,4 +11,15 @@
     <string name="signup">Sign Up</string>
     <string name="sign_up_message">Don\'t have an account?</string>
     <string name="admin_login">Admin Login</string>
+    <string name="view_restaurants">View Restaurants</string>
+    <string name="view_meals">View Meals</string>
+    <string name="add_restaurant">Add Restaurant</string>
+    <string name="add_meal">Add Meal</string>
+    <string name="add_restaurant_name">Add Restaurant Name</string>
+    <string name="add_address">Add Address</string>
+    <string name="add_city">Add City</string>
+    <string name="add_cuisine">Add Cuisine</string>
+    <string name="enter_opening_time">Enter Opening Time</string>
+    <string name="enter_closing_time">Enter Closing Time</string>
+    <string name="submit">Submit</string>
 </resources>

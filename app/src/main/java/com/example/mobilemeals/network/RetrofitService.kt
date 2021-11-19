@@ -16,4 +16,7 @@ interface RetrofitService {
 
     @POST("/user/signup")
     fun signUp(@Body userSignUp: UserSignUp): Call<UserSignUpResponse>
+
+    @POST("/restaurant/add")
+    fun addRestaurant(@Body restaurant: Restaurant): Call<AddNewRestaurantResponse>
 }
