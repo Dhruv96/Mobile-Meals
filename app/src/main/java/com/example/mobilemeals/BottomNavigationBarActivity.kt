@@ -18,8 +18,9 @@ class BottomNavigationBarActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bottom_navigation_bar)
+        supportActionBar?.hide();
         replaceFragment(homeFragment)
-        bottom_navigation.setOnNavigationItemSelectedListener {
+        bottom_navigation.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.home -> replaceFragment(homeFragment)
                 R.id.cart -> replaceFragment(cartFragment)
