@@ -5,6 +5,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 
 interface RetrofitService {
@@ -19,4 +20,10 @@ interface RetrofitService {
 
     @POST("/restaurant/add")
     fun addRestaurant(@Body restaurant: Restaurant): Call<AddNewRestaurantResponse>
+
+    @POST("/dish/add")
+    fun addDish(@Body dish: Dish): Call<AddNewDishResponse>
+
+    @GET("/dish/all/{restaurant_id}")
+    fun getDishes(@Path("restaurant_id") restaurant_id: String): Call<GetDishesResponse>
 }

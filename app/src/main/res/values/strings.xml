@@ -22,4 +22,8 @@
     <string name="enter_opening_time">Enter Opening Time</string>
     <string name="enter_closing_time">Enter Closing Time</string>
     <string name="submit">Submit</string>
+    <string name="dish_name">Enter Dish Name</string>
+    <string name="dish_category">Enter Dish Category</string>
+    <string name="select_restaurant">Select Restaurant</string>
+    <string name="enter_price">Enter Dish Price</string>
 </resources>
