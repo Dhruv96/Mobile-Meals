@@ -1,11 +1,12 @@
 package com.example.mobilemeals.network
 
 import com.example.mobilemeals.models.*
+import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
+import java.util.*
+import kotlin.collections.HashMap
 
 
 interface RetrofitService {
@@ -26,4 +27,21 @@ interface RetrofitService {
 
     @GET("/dish/all/{restaurant_id}")
     fun getDishes(@Path("restaurant_id") restaurant_id: String): Call<GetDishesResponse>
+
+    @GET("/dish/getSpecificDishes")
+    fun getSpecificDishes(@Query("dishId") dishIds: List<String>): Call<GetSpecificDishesResponse>
+
+    @POST("/cart/addItem")
+    fun addItemToCart(@Body userCartItem: UserCartItem): Call<ResponseBody>
+
+    @PUT("/cart/updateItem")
+    fun updateCartItem(@Body userCartItem: UserCartItem): Call<ResponseBody>
+
+    @GET("/cart/userCart/{userId}")
+    fun getUserCart(@Path("userId") userId: String): Call<CartResponse>
+
+    @DELETE("/cart/deleteItem/{userId}/{itemId}")
+    fun deleteCartItem(@Path("userId") userId: String, @Path("itemId") itemId:String): Call<ResponseBody>
+
+
 }

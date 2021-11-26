@@ -13,6 +13,10 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import com.google.gson.Gson
+
+
+
 
 
 class LoginActivity : AppCompatActivity() {
@@ -20,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
+        val sharedPref = this.getSharedPreferences("myPref", Context.MODE_PRIVATE) ?: return
         if(sharedPref.getBoolean("isLoggedIn",false)) {
             val intent = Intent(this@LoginActivity, BottomNavigationBarActivity::class.java)
             startActivity(intent)
@@ -57,9 +61,14 @@ class LoginActivity : AppCompatActivity() {
                     ) {
                         if(response.isSuccessful) {
                             Toast.makeText(this@LoginActivity, "Login Successful", Toast.LENGTH_SHORT).show()
-                            val sharedPref = this@LoginActivity.getPreferences(Context.MODE_PRIVATE) ?: return
+                            val userLoginResponse = response.body()
+                            val gson = Gson()
+                            val json = gson.toJson(userLoginResponse)
+                            println(json)
+                            val sharedPref = this@LoginActivity.getSharedPreferences("myPref", Context.MODE_PRIVATE) ?: return
                             with (sharedPref.edit()) {
                                 putBoolean("isLoggedIn", true)
+                                putString("USER", json)
                                 apply()
                             }
                             val intent = Intent(this@LoginActivity, BottomNavigationBarActivity::class.java)

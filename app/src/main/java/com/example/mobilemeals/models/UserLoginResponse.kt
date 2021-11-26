@@ -1,7 +1,9 @@
 package com.example.mobilemeals.models
 
+import com.google.gson.annotations.SerializedName
+
 class UserLoginResponse (
-    val _id: String,
-    val email: String,
-    val name: String
+    @SerializedName("_id")val _id: String,
+    @SerializedName("email")val email: String,
+    @SerializedName("name")val name: String
 )

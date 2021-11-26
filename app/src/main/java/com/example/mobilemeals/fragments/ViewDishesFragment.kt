@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobilemeals.R
 import com.example.mobilemeals.adapters.MealAdapter
 import com.example.mobilemeals.helpers.HelperMethods
+import com.example.mobilemeals.models.Dish
 import com.example.mobilemeals.models.GetDishesResponse
 import com.example.mobilemeals.models.Restaurant
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_view_dishes.*
 import org.json.JSONObject
 import retrofit2.Call
@@ -22,6 +24,8 @@ import retrofit2.Response
 class ViewDishesFragment : Fragment() {
 
     lateinit var restaurant: Restaurant
+    var dishes = mutableListOf<Dish>()
+    var categories = mutableSetOf<String>()
     companion object {
         val RESTAURANT = "restaurant"
     }
@@ -43,6 +47,29 @@ class ViewDishesFragment : Fragment() {
         if(arguments != null) {
             restaurant = requireArguments().getSerializable(RESTAURANT) as Restaurant
             fetchDishes()
+            tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    val filteredDishes = dishes.filter {
+                         it.category == tab?.text
+                    }
+
+                    dishesRecyclerView.apply {
+                        val mealAdapter = MealAdapter(filteredDishes, requireContext())
+                        adapter = mealAdapter
+                        layoutManager = LinearLayoutManager(requireContext())
+                    }
+
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+
+                }
+
+            })
         }
     }
 
@@ -56,11 +83,29 @@ class ViewDishesFragment : Fragment() {
             ) {
                 if(response.isSuccessful) {
                     if(response.body() != null) {
-                        val dishes = response.body()!!.dishes
-                        val mealAdapter = MealAdapter(dishes, requireContext())
+                        dishes = response.body()!!.dishes as MutableList<Dish>
+                        dishes.forEach {
+                            categories.add(it.category)
+                        }
+
+                        tabLayout.removeAllTabs()
+                        categories.forEach {
+                            tabLayout.addTab(tabLayout.newTab().setText(it))
+                        }
+                        val mealAdapter = MealAdapter(dishes.filter {
+                                  it.category == categories.elementAt(0)
+                        }, requireContext())
                         dishesRecyclerView.apply {
                             adapter = mealAdapter
                             layoutManager = LinearLayoutManager(requireContext())
+                        }
+                        if(tabLayout.tabCount <4)
+                        {
+                            tabLayout.tabGravity = TabLayout.GRAVITY_FILL;
+                        }else
+                        {
+                            tabLayout.tabMode = TabLayout.MODE_SCROLLABLE;
+
                         }
                     }
                     else {

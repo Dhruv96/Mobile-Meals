@@ -58,7 +58,7 @@ class AddMealFragment : Fragment() {
             val dishPrice = dishPrice.text.toString().trim()
             val restaurantId = restaurants[restaurant_spinner.selectedItemPosition]._id
             if (!this::fileUrl.isInitialized) {
-                Toast.makeText(requireContext(), "Please upload the restaurant image!", Toast.LENGTH_SHORT)
+                Toast.makeText(requireContext(), "Please upload the dish image!", Toast.LENGTH_SHORT)
                     .show()
             }
             else {

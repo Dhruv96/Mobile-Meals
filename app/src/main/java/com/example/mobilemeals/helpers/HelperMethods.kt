@@ -7,7 +7,11 @@ import com.example.mobilemeals.network.RetrofitService
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.util.*
+import kotlin.math.pow
+import kotlin.math.roundToInt
 
 class HelperMethods {
     companion object
@@ -52,6 +56,12 @@ class HelperMethods {
                 timePickerDialog.show()
             }
 
+        }
+
+        fun roundTo2decimal(number:Double): Double {
+            val df = DecimalFormat("#.##")
+            df.roundingMode = RoundingMode.CEILING
+            return df.format(number).toDouble()
         }
     }
 
