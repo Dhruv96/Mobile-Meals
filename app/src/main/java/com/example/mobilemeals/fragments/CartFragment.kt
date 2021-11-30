@@ -9,22 +9,37 @@ import android.view.ViewGroup
 import com.example.mobilemeals.R
 import com.google.gson.Gson
 import android.content.Context.MODE_PRIVATE
+import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mobilemeals.BottomNavigationBarActivity
 import com.example.mobilemeals.adapters.CartAdapter
 import com.example.mobilemeals.helpers.HelperMethods
 import com.example.mobilemeals.helpers.HelperMethods.Companion.roundTo2decimal
 import com.example.mobilemeals.models.*
+import com.paypal.checkout.PayPalCheckout
+import com.paypal.checkout.approve.OnApprove
+import com.paypal.checkout.config.CheckoutConfig
+import com.paypal.checkout.config.Environment
+import com.paypal.checkout.config.SettingsConfig
+import com.paypal.checkout.createorder.CreateOrder
+import com.paypal.checkout.createorder.CurrencyCode
+import com.paypal.checkout.createorder.OrderIntent
+import com.paypal.checkout.createorder.UserAction
+import com.paypal.checkout.error.OnError
+import com.paypal.checkout.order.*
+import com.paypal.pyplcheckout.BuildConfig
 import kotlinx.android.synthetic.main.fragment_cart.*
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 
 class CartFragment : Fragment(), CartAdapter.EventListener {
-
+    private val YOUR_CLIENT_ID = "AaycaMU0AYrl6Sotrj78RaBB2MdGPs6Lajf5ynnYA8HDbgSe4i5uhTxuKIQ81yhiJ_W21QhDxdlkmXUN"
     lateinit  var mPrefs: SharedPreferences
     val retrofitService = HelperMethods.service
     lateinit var cartItems: CartItemsWithId
@@ -72,6 +87,66 @@ class CartFragment : Fragment(), CartAdapter.EventListener {
             }
 
         })
+
+    }
+
+    private fun setupPaypal() {
+        val config = CheckoutConfig(
+            application = requireActivity().application,
+            clientId = YOUR_CLIENT_ID,
+            environment = Environment.SANDBOX,
+            returnUrl = "${com.example.mobilemeals.BuildConfig.APPLICATION_ID}://paypalpay",
+            currencyCode = CurrencyCode.CAD,
+            userAction = UserAction.PAY_NOW,
+
+            settingsConfig = SettingsConfig(
+                loggingEnabled = true
+            )
+        )
+        PayPalCheckout.setConfig(config)
+
+        buttonPayPaypal.setup(
+            createOrder = CreateOrder { createOrderActions ->
+                val order = Order(
+                    intent = OrderIntent.CAPTURE,
+                    appContext = AppContext(
+                        userAction = UserAction.PAY_NOW
+                    ),
+                    purchaseUnitList = listOf(
+                        PurchaseUnit(
+                            amount = Amount(
+                                currencyCode = CurrencyCode.CAD,
+                                value = String.format("%.2f", grandTotal)
+                            )
+                        )
+                    )
+                )
+
+                createOrderActions.create(order)
+            },
+            onApprove = OnApprove { approval ->
+                approval.orderActions.capture { captureOrderResult ->
+                    Log.i("CaptureOrder", "CaptureOrderResult: $captureOrderResult")
+                    if (captureOrderResult is CaptureOrderResult.Success) {
+                        println("Payment Succeeded")
+                        // open success screen
+                        val df = DecimalFormat("#.##")
+                        df.roundingMode = RoundingMode.CEILING
+                        //                        val priceUptoTwoDecimal = df.format(finalPriceWithDiscount)
+                        //                        booking.finalPrice = priceUptoTwoDecimal.toDouble()
+                    } else if (captureOrderResult is CaptureOrderResult.Error) {
+                        println("Payment Failed")
+                        // show error
+                    }
+                }
+            },
+
+            onError = OnError { errorInfo ->
+                Log.d("OnError", "Error: $errorInfo")
+                println(errorInfo.reason)
+            }
+
+        )
     }
 
     private fun getCartDetails() {
@@ -118,6 +193,7 @@ class CartFragment : Fragment(), CartAdapter.EventListener {
                         mealTotalTf.text = "MEAL TOTAL: $" + String.format("%.2f", mealTotal)
                         taxTotaltf.text = "TAXES: $" + String.format("%.2f", taxes)
                         grandTotaltf.text = "GRAND TOTAL: $" + String.format("%.2f", grandTotal)
+                        setupPaypal()
                     }
 
                 }
@@ -128,6 +204,14 @@ class CartFragment : Fragment(), CartAdapter.EventListener {
             }
 
         })
+
+        payviaCardButton.setOnClickListener {
+            val card_fragment = CreditCardFragment()
+            (context as BottomNavigationBarActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, card_fragment, "findThisFragment")
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     override fun onDeletion() {

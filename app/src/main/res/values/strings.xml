@@ -29,4 +29,5 @@
     <string name="add_to_order">Add To Order</string>
     <string name="pay_card">Pay Via Card</string>
     <string name="pay_paypal">Pay via paypal</string>
+    <string name="place_order">Place Order</string>
 </resources>
