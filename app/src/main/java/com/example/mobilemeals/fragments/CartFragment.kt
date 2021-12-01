@@ -30,6 +30,7 @@ import com.paypal.checkout.error.OnError
 import com.paypal.checkout.order.*
 import com.paypal.pyplcheckout.BuildConfig
 import kotlinx.android.synthetic.main.fragment_cart.*
+import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -46,6 +47,9 @@ class CartFragment : Fragment(), CartAdapter.EventListener {
     var mealTotal = 0.0
     var taxes = 0.0
     var grandTotal = 0.0
+    lateinit var restaurantID: String
+    var itemString = ""
+    lateinit var user: UserLoginResponse
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,14 +70,22 @@ class CartFragment : Fragment(), CartAdapter.EventListener {
         val json = mPrefs.getString("USER", "")
         println(mPrefs.getBoolean("isLoggedIn", false))
         println(json)
-        val user = gson.fromJson(json, UserLoginResponse::class.java)
+        user = gson.fromJson(json, UserLoginResponse::class.java)
         val cartCall = retrofitService.getUserCart(user._id)
         cartCall.enqueue(object: Callback<CartResponse>{
             override fun onResponse(call: Call<CartResponse>, response: Response<CartResponse>) {
                 if(response.isSuccessful) {
                     if(response.body() != null) {
-                        cartItems = response.body()!!.cart
-                        getCartDetails()
+                        val cart = response.body()!!.cart
+                        if(cart != null) {
+                            cartItems = response.body()!!.cart!!
+                            getCartDetails()
+                            cart_details_view.visibility = View.VISIBLE
+                        }
+                        else {
+                            Toast.makeText(requireContext(), "Empty Cart", Toast.LENGTH_SHORT).show()
+                            cart_details_view.visibility = View.INVISIBLE
+                        }
                     }
                     else {
                         val jObjError = JSONObject(response.errorBody()!!.string())
@@ -129,11 +141,33 @@ class CartFragment : Fragment(), CartAdapter.EventListener {
                     Log.i("CaptureOrder", "CaptureOrderResult: $captureOrderResult")
                     if (captureOrderResult is CaptureOrderResult.Success) {
                         println("Payment Succeeded")
-                        // open success screen
-                        val df = DecimalFormat("#.##")
-                        df.roundingMode = RoundingMode.CEILING
-                        //                        val priceUptoTwoDecimal = df.format(finalPriceWithDiscount)
-                        //                        booking.finalPrice = priceUptoTwoDecimal.toDouble()
+                        //Add MealOrder in DB
+                        val order = MealOrder(grandTotal, itemString, restaurantID)
+                        val bodyForPostingOrder = BodyForPostingOrder(user._id, order)
+                        val postOrderCall = retrofitService.addNewOrder(bodyForPostingOrder)
+                        postOrderCall.enqueue(object: Callback<ResponseBody> {
+                            override fun onResponse(
+                                call: Call<ResponseBody>,
+                                response: Response<ResponseBody>
+                            ) {
+                                if(response.isSuccessful) {
+                                    if(response.body() != null) {
+                                        val jObjError = JSONObject(response.body()!!.string())
+                                        Toast.makeText(requireContext(), jObjError.getString("message"), Toast.LENGTH_LONG).show()
+                                        HelperMethods.clearCartCall(user._id, requireContext())
+                                    }
+                                }
+                                else {
+                                    val jObjError = JSONObject(response.errorBody()!!.string())
+                                    Toast.makeText(requireContext(), jObjError.getString("error"), Toast.LENGTH_LONG).show()
+                                }
+                            }
+
+                            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                                Toast.makeText(requireContext(), t.localizedMessage, Toast.LENGTH_LONG).show()
+                            }
+
+                        })
                     } else if (captureOrderResult is CaptureOrderResult.Error) {
                         println("Payment Failed")
                         // show error
@@ -183,6 +217,14 @@ class CartFragment : Fragment(), CartAdapter.EventListener {
                         }
                         for (i in dishes.indices) {
                             mealTotal += cartItems[i].quantity.toDouble() * dishes[i].price.toDouble()
+                            itemString += cartItems[i].quantity.toString() + " X " + dishes[i].name + "\n"
+
+                        }
+                        if(dishes.size > 0) {
+                            restaurantID = dishes[0].restaurant_id
+                        }
+                        else {
+                            cart_details_view.visibility = View.INVISIBLE
                         }
                         mealTotal = roundTo2decimal(mealTotal)
                         println(mealTotal)
@@ -207,6 +249,11 @@ class CartFragment : Fragment(), CartAdapter.EventListener {
 
         payviaCardButton.setOnClickListener {
             val card_fragment = CreditCardFragment()
+            val order = MealOrder(grandTotal, itemString, restaurantID)
+            val bodyForPostingOrder = BodyForPostingOrder(user._id, order)
+            val bundle = Bundle()
+            bundle.putSerializable(CreditCardFragment.ORDER, bodyForPostingOrder)
+            card_fragment.arguments = bundle
             (context as BottomNavigationBarActivity).supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, card_fragment, "findThisFragment")
                 .addToBackStack(null)

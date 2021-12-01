@@ -43,5 +43,13 @@ interface RetrofitService {
     @DELETE("/cart/deleteItem/{userId}/{itemId}")
     fun deleteCartItem(@Path("userId") userId: String, @Path("itemId") itemId:String): Call<ResponseBody>
 
+    @DELETE("/cart/clearCart/{userId}")
+    fun clearCart(@Path("userId") userId: String): Call<ResponseBody>
+
+    @POST("/orders/addNewOrder")
+    fun addNewOrder(@Body order: BodyForPostingOrder) : Call<ResponseBody>
+
+    @GET("/orders/{userId}")
+    fun getUserOrders(@Path("userId") userId:String) : Call<ResponseBody>
 
 }

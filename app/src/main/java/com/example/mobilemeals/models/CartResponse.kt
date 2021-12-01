@@ -2,7 +2,7 @@ package com.example.mobilemeals.models
 
 class CartResponse(
     var message : String,
-    var cart: CartItemsWithId
+    var cart: CartItemsWithId?
 )
 
 class CartItemsWithId(
