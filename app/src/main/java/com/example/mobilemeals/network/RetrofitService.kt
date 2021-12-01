@@ -52,4 +52,7 @@ interface RetrofitService {
     @GET("/orders/{userId}")
     fun getUserOrders(@Path("userId") userId:String) : Call<ResponseBody>
 
+    @GET("/restaurant/{id}")
+    fun getSpecificRestaurant(@Path("id") restaurantId: String): Call<GetSpecificRestaurantResponse>
+
 }

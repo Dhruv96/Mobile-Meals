@@ -28,15 +28,12 @@ import com.paypal.checkout.createorder.OrderIntent
 import com.paypal.checkout.createorder.UserAction
 import com.paypal.checkout.error.OnError
 import com.paypal.checkout.order.*
-import com.paypal.pyplcheckout.BuildConfig
 import kotlinx.android.synthetic.main.fragment_cart.*
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.math.RoundingMode
-import java.text.DecimalFormat
 
 
 class CartFragment : Fragment(), CartAdapter.EventListener {
@@ -50,6 +47,7 @@ class CartFragment : Fragment(), CartAdapter.EventListener {
     lateinit var restaurantID: String
     var itemString = ""
     lateinit var user: UserLoginResponse
+    lateinit var bodyForPostingOrder: BodyForPostingOrder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,7 +110,7 @@ class CartFragment : Fragment(), CartAdapter.EventListener {
             userAction = UserAction.PAY_NOW,
 
             settingsConfig = SettingsConfig(
-                loggingEnabled = true
+                loggingEnabled = false
             )
         )
         PayPalCheckout.setConfig(config)
@@ -143,7 +141,7 @@ class CartFragment : Fragment(), CartAdapter.EventListener {
                         println("Payment Succeeded")
                         //Add MealOrder in DB
                         val order = MealOrder(grandTotal, itemString, restaurantID)
-                        val bodyForPostingOrder = BodyForPostingOrder(user._id, order)
+                        bodyForPostingOrder = BodyForPostingOrder(user._id, order)
                         val postOrderCall = retrofitService.addNewOrder(bodyForPostingOrder)
                         postOrderCall.enqueue(object: Callback<ResponseBody> {
                             override fun onResponse(
@@ -154,7 +152,7 @@ class CartFragment : Fragment(), CartAdapter.EventListener {
                                     if(response.body() != null) {
                                         val jObjError = JSONObject(response.body()!!.string())
                                         Toast.makeText(requireContext(), jObjError.getString("message"), Toast.LENGTH_LONG).show()
-                                        HelperMethods.clearCartCall(user._id, requireContext())
+                                        HelperMethods.clearCartCall(user._id, requireContext(),openOrderSuccessPage())
                                     }
                                 }
                                 else {
@@ -181,6 +179,10 @@ class CartFragment : Fragment(), CartAdapter.EventListener {
             }
 
         )
+    }
+
+    private fun openOrderSuccessPage() {
+        HelperMethods.openOrderSuccess(requireContext(), bodyForPostingOrder)
     }
 
     private fun getCartDetails() {

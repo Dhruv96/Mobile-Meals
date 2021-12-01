@@ -30,4 +30,8 @@
     <string name="pay_card">Pay Via Card</string>
     <string name="pay_paypal">Pay via paypal</string>
     <string name="place_order">Place Order</string>
+    <string name="enter_address">Enter Address</string>
+    <string name="order_placed">Order Placed</string>
+    <string name="back_to_home">Back to Home</string>
+    <string name="enter_city">Enter City</string>
 </resources>

@@ -3,7 +3,6 @@ package com.example.mobilemeals.fragments
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,29 +13,13 @@ import com.example.mobilemeals.R
 import com.example.mobilemeals.helpers.HelperMethods
 import com.example.mobilemeals.models.BodyForPostingOrder
 import com.example.mobilemeals.models.UserLoginResponse
-import com.example.mobilemeals.network.RetrofitService
 import com.google.gson.Gson
-import com.paypal.checkout.PayPalCheckout
-import com.paypal.checkout.approve.OnApprove
-import com.paypal.checkout.config.CheckoutConfig
-import com.paypal.checkout.config.Environment
-import com.paypal.checkout.config.SettingsConfig
-import com.paypal.checkout.createorder.CreateOrder
-import com.paypal.checkout.createorder.CurrencyCode
-import com.paypal.checkout.createorder.OrderIntent
-import com.paypal.checkout.createorder.UserAction
-import com.paypal.checkout.error.OnError
-import com.paypal.checkout.order.*
-import com.paypal.pyplcheckout.BuildConfig
 import kotlinx.android.synthetic.main.fragment_credit_card.*
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.math.RoundingMode
-import java.text.DecimalFormat
-import java.util.*
 
 
 class CreditCardFragment : Fragment() {
@@ -90,7 +73,7 @@ class CreditCardFragment : Fragment() {
                             if(response.body() != null) {
                                 val jObjError = JSONObject(response.body()!!.string())
                                 Toast.makeText(requireContext(), jObjError.getString("message"), Toast.LENGTH_LONG).show()
-                                HelperMethods.clearCartCall(user._id, requireContext())
+                                HelperMethods.clearCartCall(user._id, requireContext(), openOrderSuccessPage())
                             }
                         }
                         else {
@@ -110,5 +93,9 @@ class CreditCardFragment : Fragment() {
             }
         }
 
+    }
+
+    private fun openOrderSuccessPage() {
+        HelperMethods.openOrderSuccess(requireContext(), bodyForPostingOrder)
     }
 }

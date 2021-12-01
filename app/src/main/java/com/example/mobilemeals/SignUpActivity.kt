@@ -25,9 +25,11 @@ class SignUpActivity : AppCompatActivity() {
             val name = nameTf.text.toString()
             val email = emailTf.text.toString()
             val password = passwordTf.text.toString()
+            val address = addressTextField.text.toString()
+            val city = userCity.text.toString()
 
-            if(email != "" && password != "" && name != "") {
-                val userSignup = UserSignUp(name, email, password)
+            if(email != "" && password != "" && name != "" && address != "" && city != "")  {
+                val userSignup = UserSignUp(name, email, password, address, city)
                 val service = HelperMethods.service
                 val userSignUpCall = service.signUp(userSignup)
                 userSignUpCall.enqueue(object: Callback<UserSignUpResponse> {

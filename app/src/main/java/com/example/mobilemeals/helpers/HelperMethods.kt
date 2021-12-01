@@ -2,6 +2,7 @@ package com.example.mobilemeals.helpers
 
 import android.app.TimePickerDialog
 import android.content.Context
+import android.location.Address
 import android.widget.EditText
 import android.widget.Toast
 import com.example.mobilemeals.network.RetrofitService
@@ -16,8 +17,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.util.*
-import kotlin.math.pow
-import kotlin.math.roundToInt
+import com.google.android.gms.maps.model.LatLng
+
+import android.location.Geocoder
+import android.os.Bundle
+import com.example.mobilemeals.BottomNavigationBarActivity
+import com.example.mobilemeals.R
+import com.example.mobilemeals.fragments.MapsFragment
+import com.example.mobilemeals.models.BodyForPostingOrder
+import java.lang.Exception
+
 
 class HelperMethods {
     companion object
@@ -70,7 +79,7 @@ class HelperMethods {
             return df.format(number).toDouble()
         }
 
-        fun clearCartCall(userId: String, context: Context) {
+        fun clearCartCall(userId: String, context: Context, myFunc: Unit){
             val service = service
             val clearCartCall = service.clearCart(userId)
             clearCartCall.enqueue(object: Callback<ResponseBody> {
@@ -82,6 +91,7 @@ class HelperMethods {
                         if(response.body() != null) {
                             val jObjError = JSONObject(response.body()!!.string())
                             Toast.makeText(context, jObjError.getString("message"), Toast.LENGTH_LONG).show()
+                            myFunc
                         }
                         else {
                             val jObjError = JSONObject(response.errorBody()!!.string())
@@ -95,6 +105,36 @@ class HelperMethods {
                 }
 
             })
+        }
+
+        fun getLocationFromAddress(context: Context?, strAddress: String?): LatLng? {
+            val coder = Geocoder(context)
+            val address: List<Address>?
+            var p1: LatLng? = null
+            try {
+                address = coder.getFromLocationName(strAddress, 5)
+                if (address == null) {
+                    return null
+                }
+                val location: Address = address[0]
+                location.getLatitude()
+                location.getLongitude()
+                p1 = LatLng(location.getLatitude(), location.getLongitude())
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            return p1
+        }
+
+        fun openOrderSuccess(context: Context, bodyForPostingOrder: BodyForPostingOrder) {
+            val mapsFragment = MapsFragment()
+            val bundle = Bundle()
+            bundle.putSerializable(MapsFragment.ORDER, bodyForPostingOrder)
+            mapsFragment.arguments = bundle
+            (context as BottomNavigationBarActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, mapsFragment, "findThisFragment")
+                .addToBackStack(null)
+                .commit()
         }
     }
 
