@@ -34,4 +34,5 @@
     <string name="order_placed">Order Placed</string>
     <string name="back_to_home">Back to Home</string>
     <string name="enter_city">Enter City</string>
+    <string name="update_profile">Update Profile</string>
 </resources>

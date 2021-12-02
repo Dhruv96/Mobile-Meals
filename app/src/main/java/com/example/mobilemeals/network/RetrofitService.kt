@@ -17,7 +17,7 @@ interface RetrofitService {
     fun getAllRestaurants(): Call<GetAllRestaurantsResponse>
 
     @POST("/user/signup")
-    fun signUp(@Body userSignUp: UserSignUp): Call<UserSignUpResponse>
+    fun signUp(@Body userSignUp: UserSignUp): Call<UserLoginResponse>
 
     @POST("/restaurant/add")
     fun addRestaurant(@Body restaurant: Restaurant): Call<AddNewRestaurantResponse>
@@ -55,4 +55,6 @@ interface RetrofitService {
     @GET("/restaurant/{id}")
     fun getSpecificRestaurant(@Path("id") restaurantId: String): Call<GetSpecificRestaurantResponse>
 
+    @PUT("/user/updateUser")
+    fun updateUserProfile(@Body user: UpdateUserProfileRequest): Call<ResponseBody>
 }

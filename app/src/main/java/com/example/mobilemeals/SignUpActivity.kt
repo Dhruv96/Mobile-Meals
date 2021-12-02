@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.mobilemeals.helpers.HelperMethods
+import com.example.mobilemeals.models.UserLoginResponse
 import com.example.mobilemeals.models.UserSignUp
 import com.example.mobilemeals.models.UserSignUpResponse
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -32,18 +34,23 @@ class SignUpActivity : AppCompatActivity() {
                 val userSignup = UserSignUp(name, email, password, address, city)
                 val service = HelperMethods.service
                 val userSignUpCall = service.signUp(userSignup)
-                userSignUpCall.enqueue(object: Callback<UserSignUpResponse> {
+                userSignUpCall.enqueue(object: Callback<UserLoginResponse> {
                     override fun onResponse(
-                        call: Call<UserSignUpResponse>,
-                        response: Response<UserSignUpResponse>
+                        call: Call<UserLoginResponse>,
+                        response: Response<UserLoginResponse>
                     ) {
                         if(response.isSuccessful) {
                             if(response.body() != null) {
                                 println(response.body().toString())
                                 Toast.makeText(this@SignUpActivity, "Sign up successful", Toast.LENGTH_SHORT).show()
-                                val sharedPref = this@SignUpActivity.getPreferences(Context.MODE_PRIVATE) ?: return
+                                val userLoginResponse = response.body()
+                                val gson = Gson()
+                                val json = gson.toJson(userLoginResponse)
+                                println(json)
+                                val sharedPref = this@SignUpActivity.getSharedPreferences("myPref", Context.MODE_PRIVATE) ?: return
                                 with (sharedPref.edit()) {
                                     putBoolean("isLoggedIn", true)
+                                    putString("USER", json)
                                     apply()
                                 }
                                 val intent = Intent(this@SignUpActivity, BottomNavigationBarActivity::class.java)
@@ -58,7 +65,7 @@ class SignUpActivity : AppCompatActivity() {
                         }
                     }
 
-                    override fun onFailure(call: Call<UserSignUpResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<UserLoginResponse>, t: Throwable) {
                         Toast.makeText(this@SignUpActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
                     }
 
