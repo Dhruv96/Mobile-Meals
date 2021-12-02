@@ -63,6 +63,7 @@ class CartFragment : Fragment(), CartAdapter.EventListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        itemString = ""
         mPrefs = requireActivity().getSharedPreferences("myPref", MODE_PRIVATE)
         val gson = Gson()
         val json = mPrefs.getString("USER", "")
@@ -78,7 +79,13 @@ class CartFragment : Fragment(), CartAdapter.EventListener {
                         if(cart != null) {
                             cartItems = response.body()!!.cart!!
                             getCartDetails()
-                            cart_details_view.visibility = View.VISIBLE
+                            if(cartItems.items.size > 0) {
+                                cart_details_view.visibility = View.VISIBLE
+                            }
+                            else{
+                                cart_details_view.visibility = View.INVISIBLE
+                            }
+
                         }
                         else {
                             Toast.makeText(requireContext(), "Empty Cart", Toast.LENGTH_SHORT).show()

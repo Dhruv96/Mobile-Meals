@@ -1,13 +1,17 @@
 package com.example.mobilemeals.adapters
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobilemeals.BottomNavigationBarActivity
+import com.example.mobilemeals.LoginActivity
 import com.example.mobilemeals.R
 import com.example.mobilemeals.databinding.AccountRecyclerViewItemBinding
 import com.example.mobilemeals.fragments.EditProfileFragment
+import com.example.mobilemeals.fragments.OrdersFragment
 import kotlinx.android.synthetic.main.account_recycler_view_item.view.*
 
 class AccountAdapter(private val listItems: List<String>, val context: Context) : RecyclerView.Adapter<AccountAdapter.AccountRecyclerViewHolder>() {
@@ -32,11 +36,18 @@ class AccountAdapter(private val listItems: List<String>, val context: Context) 
                 }
 
                 1 -> {
-                    println("Orders")
+                    (context as BottomNavigationBarActivity).supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, OrdersFragment(), "findThisFragment")
+                        .addToBackStack(null)
+                        .commit()
                 }
 
                 2 -> {
-                   println("Logout")
+                    val sharedPref = context.getSharedPreferences("myPref", Context.MODE_PRIVATE)
+                    sharedPref.edit().clear().apply()
+                    val intent = Intent(context, LoginActivity::class.java)
+                    context.startActivity(intent)
+                    (context as Activity).finish()
                 }
                 else  -> {
                     return@setOnClickListener

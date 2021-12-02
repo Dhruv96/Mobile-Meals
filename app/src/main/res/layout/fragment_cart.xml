@@ -16,27 +16,28 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:id="@+id/cart_details_view"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:background="#FF8F00"
+        android:orientation="vertical"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
-    <TextView
-        android:id="@+id/mealTotalTf"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cart_details_view"/>
+        <TextView
+            android:id="@+id/mealTotalTf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="16dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cart_details_view" />
 
         <TextView
             android:id="@+id/taxTotaltf"
@@ -62,37 +63,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/taxTotaltf" />
 
-    <Button
-        android:id="@+id/payviaCardButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/pay_card"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/grandTotaltf" />
+        <Button
+            android:id="@+id/payviaCardButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/pay_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/grandTotaltf" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textAlignment="center"
-            android:text="OR"/>
+            android:text="OR"
+            android:textAlignment="center" />
 
-    <com.paypal.checkout.paymentbutton.PayPalButton
-        android:id="@+id/buttonPayPaypal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="32dp"
-        android:elevation="5dp"
-        android:textColor="#414141"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <com.paypal.checkout.paymentbutton.PayPalButton
+            android:id="@+id/buttonPayPaypal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="32dp"
+            android:elevation="5dp"
+            android:textColor="#414141"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

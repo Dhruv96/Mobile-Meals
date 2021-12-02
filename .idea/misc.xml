@@ -11,6 +11,8 @@
         <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_maps.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_order_placed.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_orders.xml" value="0.1431159420289855" />
+        <entry key="app/src/main/res/layout/orders_recyclerview_item.xml" value="0.25" />
       </map>
     </option>
   </component>

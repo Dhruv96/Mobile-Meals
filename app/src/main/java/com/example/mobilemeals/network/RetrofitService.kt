@@ -50,7 +50,7 @@ interface RetrofitService {
     fun addNewOrder(@Body order: BodyForPostingOrder) : Call<ResponseBody>
 
     @GET("/orders/{userId}")
-    fun getUserOrders(@Path("userId") userId:String) : Call<ResponseBody>
+    fun getUserOrders(@Path("userId") userId:String) : Call<UserOrdersResponse>
 
     @GET("/restaurant/{id}")
     fun getSpecificRestaurant(@Path("id") restaurantId: String): Call<GetSpecificRestaurantResponse>
