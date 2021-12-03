@@ -18,7 +18,9 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.fragment_add_restaurant.*
+import kotlinx.android.synthetic.main.fragment_add_restaurant.restaurant_address
 import kotlinx.android.synthetic.main.fragment_admin_options.*
+import kotlinx.android.synthetic.main.restaurant_recyclerview_item.*
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -92,6 +94,13 @@ class AddRestaurantFragment : Fragment() {
                                     if(response.body() != null) {
                                         val name = response.body()?.restaurant?.name
                                         Toast.makeText(requireContext(), "${name} added", Toast.LENGTH_SHORT).show()
+                                        fileUrl = Uri.EMPTY
+                                        restaurant_name.setText("")
+                                        restaurant_address.setText("")
+                                        restaurant_cuisine.setText("")
+                                        restaurant_opening_hour.setText("")
+                                        restaurant_closing_hour.setText("")
+                                        resturant_city.setText("")
                                     }
                                 }
                                 else {

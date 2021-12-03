@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/layout/fragment_order_placed.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_orders.xml" value="0.1431159420289855" />
         <entry key="app/src/main/res/layout/orders_recyclerview_item.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/restaurant_recyclerview_item.xml" value="0.335" />
       </map>
     </option>
   </component>

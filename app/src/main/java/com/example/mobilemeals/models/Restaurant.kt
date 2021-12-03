@@ -1,8 +1,12 @@
 package com.example.mobilemeals.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.io.Serializable
 
+@Entity(tableName = "restaurants")
 class Restaurant(
+    @PrimaryKey()
     val _id : String,
     val name : String,
     val address : String,
