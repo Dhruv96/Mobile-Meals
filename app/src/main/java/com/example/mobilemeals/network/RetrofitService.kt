@@ -2,11 +2,9 @@ package com.example.mobilemeals.network
 
 import com.example.mobilemeals.models.*
 import okhttp3.ResponseBody
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.*
-import java.util.*
-import kotlin.collections.HashMap
+
 
 
 interface RetrofitService {

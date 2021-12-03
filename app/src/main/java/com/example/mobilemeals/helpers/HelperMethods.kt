@@ -1,5 +1,6 @@
 package com.example.mobilemeals.helpers
 
+import android.app.Application
 import android.app.TimePickerDialog
 import android.content.Context
 import android.location.Address
@@ -18,24 +19,44 @@ import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.util.*
 import com.google.android.gms.maps.model.LatLng
-
 import android.location.Geocoder
 import android.os.Bundle
+import android.util.Log
 import com.example.mobilemeals.BottomNavigationBarActivity
 import com.example.mobilemeals.R
 import com.example.mobilemeals.fragments.MapsFragment
 import com.example.mobilemeals.models.BodyForPostingOrder
+import java.io.InputStream
 import java.lang.Exception
 
 
 class HelperMethods {
+
+
+
     companion object
     {
         val service = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:5000")
+            .baseUrl(getIpAddress())
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .build()
             .create(RetrofitService::class.java)
+
+        fun getIpAddress(): String {
+            var ipaddress = ""
+            val context = GlobalApplication.getAppContext()
+            try {
+                val inputStream: InputStream = context.assets.open("source.txt")
+                val size: Int = inputStream.available()
+                val buffer = ByteArray(size)
+                inputStream.read(buffer)
+                ipaddress = String(buffer)
+
+            } catch (e: Exception) {
+                Log.d("error", e.message.toString())
+            }
+            return ipaddress
+        }
 
 
         fun EditText.transformIntoTimePicker(context: Context) {
