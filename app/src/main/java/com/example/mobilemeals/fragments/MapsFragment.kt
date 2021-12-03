@@ -66,25 +66,29 @@ class MapsFragment : Fragment() {
         println("Callback")
         val userLocation = HelperMethods.getLocationFromAddress(requireContext(), user.address + " " + user.city )
         val restaurantLocation = HelperMethods.getLocationFromAddress(requireContext(), restaurant.address + " " + restaurant.city)
-        println(userLocation.toString())
-        googleMap.addMarker(MarkerOptions().position(userLocation!!).title(user.address))
-        googleMap.addMarker(MarkerOptions().position(restaurantLocation!!).title(restaurant.name))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation!!))
-        googleMap.setMinZoomPreference(10.0f)
+        println("RestaurantLoc:${restaurantLocation.toString()}")
+        println("UserLocation: ${userLocation.toString()}")
+        if(userLocation != null && restaurantLocation != null) {
+            googleMap.addMarker(MarkerOptions().position(userLocation!!).title(user.address))
+            googleMap.addMarker(MarkerOptions().position(restaurantLocation!!).title(restaurant.name))
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation!!))
+            googleMap.setMinZoomPreference(10.0f)
 
-        val polylineOptions = PolylineOptions()
-        polylineOptions.add(userLocation)
-        polylineOptions.add(restaurantLocation)
-        polylineOptions.geodesic(true)
-        val pattern: List<PatternItem> = Arrays.asList(
-            Dash(20.0f), Gap(20.0f), Dash(20.0f), Gap(20.0f),
-            Dash(20.0f), Gap(20.0f), Dash(20.0f), Gap(20.0f),
-            Dash(20.0f), Gap(20.0f), Dash(20.0f), Gap(20.0f),
-            Dash(20.0f), Gap(20.0f), Dash(20.0f), Gap(20.0f)
-        )
+            val polylineOptions = PolylineOptions()
+            polylineOptions.add(userLocation)
+            polylineOptions.add(restaurantLocation)
+            polylineOptions.geodesic(true)
+            val pattern: List<PatternItem> = Arrays.asList(
+                Dash(20.0f), Gap(20.0f), Dash(20.0f), Gap(20.0f),
+                Dash(20.0f), Gap(20.0f), Dash(20.0f), Gap(20.0f),
+                Dash(20.0f), Gap(20.0f), Dash(20.0f), Gap(20.0f),
+                Dash(20.0f), Gap(20.0f), Dash(20.0f), Gap(20.0f)
+            )
 
-        val polyline = googleMap.addPolyline(polylineOptions);
-        polyline.pattern = pattern
+            val polyline = googleMap.addPolyline(polylineOptions);
+            polyline.pattern = pattern
+        }
+
     }
 
     override fun onCreateView(

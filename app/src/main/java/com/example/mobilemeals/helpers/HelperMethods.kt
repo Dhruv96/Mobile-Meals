@@ -32,8 +32,6 @@ import java.lang.Exception
 
 class HelperMethods {
 
-
-
     companion object
     {
         val service = Retrofit.Builder()
@@ -129,21 +127,24 @@ class HelperMethods {
         }
 
         fun getLocationFromAddress(context: Context?, strAddress: String?): LatLng? {
+            print(strAddress)
             val coder = Geocoder(context)
             val address: List<Address>?
             var p1: LatLng? = null
             try {
                 address = coder.getFromLocationName(strAddress, 5)
                 if (address == null) {
+                    println("address null")
                     return null
                 }
                 val location: Address = address[0]
-                location.getLatitude()
-                location.getLongitude()
-                p1 = LatLng(location.getLatitude(), location.getLongitude())
+                location.latitude
+                location.longitude
+                p1 = LatLng(location.latitude, location.longitude)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+            println("returning results: ${p1?.latitude}${p1?.longitude}")
             return p1
         }
 
