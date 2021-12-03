@@ -12,7 +12,6 @@
     <string name="sign_up_message">Don\'t have an account?</string>
     <string name="admin_login">Admin Login</string>
     <string name="view_restaurants">View Restaurants</string>
-    <string name="view_meals">View Meals</string>
     <string name="add_restaurant">Add Restaurant</string>
     <string name="add_meal">Add Meal</string>
     <string name="add_restaurant_name">Add Restaurant Name</string>
@@ -35,4 +34,7 @@
     <string name="back_to_home">Back to Home</string>
     <string name="enter_city">Enter City</string>
     <string name="update_profile">Update Profile</string>
+    <string name="view_meals">View Meals</string>
+    <string name="delete_this_restaurant">Delete This Restaurant</string>
+    <string name="order_summary">Order Summary</string>
 </resources>

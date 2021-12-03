@@ -57,4 +57,10 @@ interface RetrofitService {
 
     @PUT("/user/updateUser")
     fun updateUserProfile(@Body user: UpdateUserProfileRequest): Call<ResponseBody>
+
+    @DELETE("/restaurant/delete/{restaurant_id}")
+    fun deleteRestaurant(@Path("restaurant_id") restaurantId: String) : Call<ResponseBody>
+
+    @DELETE("/dish/delete/{dishId}")
+    fun deleteDish(@Path("dishId") dishId: String): Call<ResponseBody>
 }

@@ -4,14 +4,23 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/account_recycler_view_item.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_admin.xml" value="0.10520833333333333" />
+        <entry key="app/src/main/res/layout/activity_bottom_navigation_bar.xml" value="0.10520833333333333" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/admin_restaurants_recyclerview_item.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/admin_view_meal_recyclerview_item.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/cart_recycler_view_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.1480978260869565" />
+        <entry key="app/src/main/res/layout/fragment_admin_options.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_cart.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_credit_card.xml" value="0.11904761904761904" />
         <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_maps.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_order_placed.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_orders.xml" value="0.1431159420289855" />
+        <entry key="app/src/main/res/layout/fragment_view_dishes.xml" value="0.16802536231884058" />
+        <entry key="app/src/main/res/layout/fragment_view_meals.xml" value="0.16802536231884058" />
+        <entry key="app/src/main/res/layout/fragment_view_restaurants.xml" value="0.16802536231884058" />
         <entry key="app/src/main/res/layout/orders_recyclerview_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/restaurant_recyclerview_item.xml" value="0.335" />
       </map>

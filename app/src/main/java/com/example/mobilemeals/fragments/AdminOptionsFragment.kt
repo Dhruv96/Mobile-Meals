@@ -35,10 +35,6 @@ class AdminOptionsFragment : Fragment() {
             it.findNavController().navigate(R.id.action_adminOptionsFragment_to_addMealFragment)
         }
 
-        view_meals.setOnClickListener {
-            it.findNavController().navigate(R.id.action_adminOptionsFragment_to_viewMealsFragment)
-        }
-
         view_restaurants.setOnClickListener {
             it.findNavController().navigate(R.id.action_adminOptionsFragment_to_viewRestaurantsFragment)
         }

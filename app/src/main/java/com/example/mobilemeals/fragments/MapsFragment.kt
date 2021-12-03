@@ -37,6 +37,7 @@ import com.google.android.gms.maps.model.Dash
 import com.google.android.gms.maps.model.Dot
 
 import com.google.android.gms.maps.model.PatternItem
+import kotlinx.android.synthetic.main.fragment_maps.*
 import java.util.*
 
 
@@ -107,7 +108,7 @@ class MapsFragment : Fragment() {
              println(json)
              user = gson.fromJson(json, UserLoginResponse::class.java)
             fetchRestaurantDetails()
-
+            order_summary.text = postingOrderBody.order.item_string + "\n" + "$" + postingOrderBody.order.final_price
         }
     }
 
