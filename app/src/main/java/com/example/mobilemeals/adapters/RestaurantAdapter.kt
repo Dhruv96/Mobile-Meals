@@ -4,7 +4,10 @@ import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -13,13 +16,20 @@ import com.example.mobilemeals.Database.AppDatabase
 import com.example.mobilemeals.R
 import com.example.mobilemeals.databinding.RestaurantRecyclerviewItemBinding
 import com.example.mobilemeals.fragments.ViewDishesFragment
+import com.example.mobilemeals.helpers.HelperMethods
+import com.example.mobilemeals.models.GetRestaurantRatingResponse
 import com.example.mobilemeals.models.Restaurant
 import kotlinx.android.synthetic.main.restaurant_recyclerview_item.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RestaurantAdapter (private val context: Context, private val restaurants: List<Restaurant>, private val favouriteRestaurants: List<Restaurant>): RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>() {
 
+    val retrofitService = HelperMethods.service
     val not_fav = context.resources.getDrawable(R.drawable.not_fav)
     val fav = context.resources.getDrawable(R.drawable.favorite)
+    val star = context.resources.getDrawable(R.drawable.star)
     val database = AppDatabase.getInstance(context)
 
     inner class RestaurantViewHolder(itemView: RestaurantRecyclerviewItemBinding):
@@ -40,6 +50,8 @@ class RestaurantAdapter (private val context: Context, private val restaurants: 
                 else {
                     itemView.favImgView.setImageDrawable(not_fav)
                 }
+
+                fetchRatings(restaurant._id, itemView.cardView.rating, itemView.cardView.ratingView)
             }
     }
 
@@ -83,5 +95,35 @@ class RestaurantAdapter (private val context: Context, private val restaurants: 
 
     override fun getItemCount(): Int {
         return restaurants.size
+    }
+
+    private fun fetchRatings(restaurant_id: String, ratingTextView: TextView, ratingView: LinearLayout){
+        val getratingCall = retrofitService.getRestaurantRating(restaurant_id)
+        getratingCall.enqueue(object: Callback<GetRestaurantRatingResponse>{
+            override fun onResponse(
+                call: Call<GetRestaurantRatingResponse>,
+                response: Response<GetRestaurantRatingResponse>
+            ) {
+                if(response.isSuccessful) {
+                    if(response.body() != null) {
+                        val ratings = response.body()!!.ratings
+                        val sumRatings = ratings.map { it.rating }.sum()
+                        val avgrating = sumRatings/ratings.size
+                        if(avgrating.isNaN()) {
+                            ratingView.visibility = View.INVISIBLE
+                        }
+                        else {
+                            ratingView.visibility = View.VISIBLE
+                            ratingTextView.text = String.format("%.1f", avgrating)
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<GetRestaurantRatingResponse>, t: Throwable) {
+
+            }
+
+        })
     }
 }

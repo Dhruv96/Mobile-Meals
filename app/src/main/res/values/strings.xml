@@ -37,4 +37,6 @@
     <string name="view_meals">View Meals</string>
     <string name="delete_this_restaurant">Delete This Restaurant</string>
     <string name="order_summary">Order Summary</string>
+    <string name="rate_restaurant">Rate This Restaurant</string>
+    <string name="enter_feedback">Enter Feedback</string>
 </resources>

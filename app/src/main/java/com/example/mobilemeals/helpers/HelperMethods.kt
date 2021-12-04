@@ -137,6 +137,8 @@ class HelperMethods {
                     println("address null")
                     return null
                 }
+                println("Size")
+                println(address.size)
                 val location: Address = address[0]
                 location.latitude
                 location.longitude

@@ -61,4 +61,13 @@ interface RetrofitService {
 
     @DELETE("/dish/delete/{dishId}")
     fun deleteDish(@Path("dishId") dishId: String): Call<ResponseBody>
+
+    @POST("/restaurants/ratings/addNewRating")
+    fun addNewRating(@Body userRating: UserRating): Call<ResponseBody>
+
+    @GET("/restaurants/ratings/{restaurantId}")
+    fun getRestaurantRating(@Path("restaurantId") restaurantId: String): Call<GetRestaurantRatingResponse>
+
+    @PUT("/dish/edit/{dishId}")
+    fun editDish(@Path("dishId") dishId: String, @Body dish: Dish): Call<ResponseBody>
 }

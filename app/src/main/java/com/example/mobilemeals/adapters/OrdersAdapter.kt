@@ -1,14 +1,19 @@
 package com.example.mobilemeals.adapters
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.mobilemeals.BottomNavigationBarActivity
+import com.example.mobilemeals.R
 
 import com.example.mobilemeals.databinding.OrdersRecyclerviewItemBinding
+import com.example.mobilemeals.fragments.MapsFragment
+import com.example.mobilemeals.fragments.RatingFragment
 import com.example.mobilemeals.helpers.HelperMethods
 import com.example.mobilemeals.models.GetSpecificRestaurantResponse
 import com.example.mobilemeals.models.MealOrder
@@ -57,6 +62,16 @@ class OrdersAdapter (private val orders: List<MealOrder>, private val context: C
         val from = LayoutInflater.from(parent.context)
         val binding = OrdersRecyclerviewItemBinding.inflate(from, parent, false)
         val ordersViewHolder = OrdersViewHolder(binding)
+        ordersViewHolder.itemView.cardView.rate_restaurant.setOnClickListener {
+            val ratingFragment = RatingFragment()
+            val bundle = Bundle()
+            bundle.putString(RatingFragment.RESTAURANT_ID, orders[ordersViewHolder.adapterPosition].restaurant_id)
+            ratingFragment.arguments = bundle
+            (context as BottomNavigationBarActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, ratingFragment , "findThisFragment")
+                .addToBackStack(null)
+                .commit()
+        }
         return ordersViewHolder
     }
 

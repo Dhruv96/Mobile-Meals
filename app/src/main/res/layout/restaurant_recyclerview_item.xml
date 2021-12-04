@@ -89,6 +89,28 @@
                 android:text="Indian"
                 android:textSize="18sp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ratingView">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/star"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"/>
+                <TextView
+                    android:id="@+id/rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="0.0" />
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 

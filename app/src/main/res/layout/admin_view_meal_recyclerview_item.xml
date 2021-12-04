@@ -45,4 +45,15 @@
         android:foregroundTint="@color/red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/editMeal"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/edit"
+        android:foregroundTint="@color/red"
+        app:layout_constraintBottom_toBottomOf="@+id/deleteMealBtn"
+        app:layout_constraintEnd_toStartOf="@+id/deleteMealBtn"
+        app:layout_constraintTop_toTopOf="@+id/deleteMealBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

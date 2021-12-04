@@ -1,12 +1,17 @@
 package com.example.mobilemeals.adapters
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.mobilemeals.AdminActivity
+import com.example.mobilemeals.BottomNavigationBarActivity
+import com.example.mobilemeals.R
 import com.example.mobilemeals.databinding.AdminViewMealRecyclerviewItemBinding
+import com.example.mobilemeals.fragments.AddMealFragment
 import com.example.mobilemeals.helpers.HelperMethods
 import com.example.mobilemeals.models.Dish
 import kotlinx.android.synthetic.main.admin_view_meal_recyclerview_item.view.*
@@ -59,6 +64,18 @@ class AdminMealAdapter(private val dishes: MutableList<Dish>, private val contex
 
             })
         }
+
+        adminMealViewHolder.itemView.editMeal.setOnClickListener {
+            val addMealFragment = AddMealFragment()
+            val bundle = Bundle()
+            bundle.putSerializable(AddMealFragment.EDIT_MEAL, dishes[adminMealViewHolder.adapterPosition])
+            addMealFragment.arguments = bundle
+            (context as AdminActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView, addMealFragment, "findThisFragment")
+                .addToBackStack(null)
+                .commit()
+        }
+
         return adminMealViewHolder
     }
 
