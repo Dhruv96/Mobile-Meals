@@ -11,6 +11,7 @@ import com.example.mobilemeals.AdminActivity
 import com.example.mobilemeals.BottomNavigationBarActivity
 import com.example.mobilemeals.R
 import com.example.mobilemeals.databinding.AdminRestaurantsRecyclerviewItemBinding
+import com.example.mobilemeals.fragments.AddRestaurantFragment
 import com.example.mobilemeals.fragments.ViewMealsFragment
 import com.example.mobilemeals.helpers.HelperMethods
 import com.example.mobilemeals.models.Restaurant
@@ -83,6 +84,16 @@ class AdminRestaurantsAdapter(private val restaurants: MutableList<Restaurant>, 
                 .commit()
         }
 
+        adminRestaurantViewHolder.itemView.edit_restaurant_btn.setOnClickListener {
+            val addRestaurantFragment = AddRestaurantFragment()
+            val bundle = Bundle()
+            bundle.putSerializable(AddRestaurantFragment.RESTAURANT, restaurants[adminRestaurantViewHolder.adapterPosition])
+            addRestaurantFragment.arguments = bundle
+            (context as AdminActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView, addRestaurantFragment, "findThisFragment")
+                .addToBackStack(null)
+                .commit()
+        }
         return adminRestaurantViewHolder
     }
 

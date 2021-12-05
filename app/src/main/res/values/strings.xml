@@ -39,4 +39,5 @@
     <string name="order_summary">Order Summary</string>
     <string name="rate_restaurant">Rate This Restaurant</string>
     <string name="enter_feedback">Enter Feedback</string>
+    <string name="edit_this_restaurant">Edit this Restaurant</string>
 </resources>

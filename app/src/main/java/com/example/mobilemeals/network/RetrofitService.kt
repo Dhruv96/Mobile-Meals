@@ -70,4 +70,7 @@ interface RetrofitService {
 
     @PUT("/dish/edit/{dishId}")
     fun editDish(@Path("dishId") dishId: String, @Body dish: Dish): Call<ResponseBody>
+
+    @PUT("/restaurant/edit/{restaurant_id}")
+    fun editRestaurant(@Path("restaurant_id") restaurantId: String, @Body restaurant: Restaurant): Call<ResponseBody>
 }

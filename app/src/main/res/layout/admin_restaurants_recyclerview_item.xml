@@ -79,6 +79,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/delete_this_restaurant" />
 
+            <Button
+                android:id="@+id/edit_restaurant_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/edit_this_restaurant" />
+
 
         </LinearLayout>
 
