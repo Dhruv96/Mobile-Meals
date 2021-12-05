@@ -49,6 +49,7 @@ class HomeFragment : Fragment() {
         }
     }
 
+    // FETCHING ALL RESTAURANTS
     private fun getAllRestaurants() {
         val getRestaurantsCall = HelperMethods.service.getAllRestaurants()
         getRestaurantsCall.enqueue(object: Callback<GetAllRestaurantsResponse>{

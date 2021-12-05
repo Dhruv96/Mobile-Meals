@@ -12,6 +12,7 @@
         <entry key="app/src/main/res/layout/cart_recycler_view_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.1480978260869565" />
         <entry key="app/src/main/res/layout/fragment_add_meal.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_add_restaurant.xml" value="0.14221014492753623" />
         <entry key="app/src/main/res/layout/fragment_admin_options.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_cart.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_credit_card.xml" value="0.11904761904761904" />

@@ -69,6 +69,7 @@ class CartFragment : Fragment(), CartAdapter.EventListener {
         val json = mPrefs.getString("USER", "")
         println(mPrefs.getBoolean("isLoggedIn", false))
         println(json)
+        // getting logged in user details from shared preferences
         user = gson.fromJson(json, UserLoginResponse::class.java)
         val cartCall = retrofitService.getUserCart(user._id)
         cartCall.enqueue(object: Callback<CartResponse>{
@@ -107,6 +108,7 @@ class CartFragment : Fragment(), CartAdapter.EventListener {
 
     }
 
+    // setting paypal configuration
     private fun setupPaypal() {
         val config = CheckoutConfig(
             application = requireActivity().application,
@@ -192,6 +194,7 @@ class CartFragment : Fragment(), CartAdapter.EventListener {
         HelperMethods.openOrderSuccess(requireContext(), bodyForPostingOrder)
     }
 
+    // getting cart details and calculating price based on items in the cart
     private fun getCartDetails() {
         mealTotal = 0.0
         taxes = 0.0

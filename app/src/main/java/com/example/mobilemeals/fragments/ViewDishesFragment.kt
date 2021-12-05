@@ -73,6 +73,7 @@ class ViewDishesFragment : Fragment() {
         }
     }
 
+    // Getting dishes of specific restaurant
     private fun fetchDishes() {
         val retrofitService = HelperMethods.service
         val fetchDishesCall = retrofitService.getDishes(restaurant._id)

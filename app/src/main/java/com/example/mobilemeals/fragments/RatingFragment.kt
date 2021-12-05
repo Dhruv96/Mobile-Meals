@@ -53,6 +53,8 @@ class RatingFragment : Fragment() {
             println(json)
             user = gson.fromJson(json, UserLoginResponse::class.java)
             restaurantId = requireArguments().getString(RESTAURANT_ID) as String
+
+            // oon click action for rating submission
             submit_rating_btn.setOnClickListener {
                 val rating = ratingBar.rating
                 val userFeedback = feedbackEditText.text.toString().trim()

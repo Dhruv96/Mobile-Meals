@@ -59,6 +59,7 @@ class AddMealFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if(arguments != null) {
+            // setting previous passed object details
             meal = requireArguments().getSerializable(EDIT_MEAL) as Dish
             dishNameTf.setText(meal.name)
             dishCategory.setText(meal.category)
@@ -73,6 +74,8 @@ class AddMealFragment : Fragment() {
         mealImgView.setOnClickListener {
             selectImageFromGallery()
         }
+
+        // submit button click listener (same used for editing as well)
         submit_btn.setOnClickListener {
             if(submit_btn.text != "Edit") {
                 val dishName = dishNameTf.text.toString().trim()
@@ -165,6 +168,7 @@ class AddMealFragment : Fragment() {
         }
     }
 
+    // function to update a dish
     private fun updateMealDetails(updatedmeal: Dish) {
         val editDishCall = retrofitService.editDish(meal._id, updatedmeal)
         editDishCall.enqueue(object : Callback<ResponseBody> {
@@ -198,6 +202,7 @@ class AddMealFragment : Fragment() {
         })
     }
 
+    // This function gets all restaurants for spinner
     private fun fetchAllRestaurants() {
         val retrofitService = HelperMethods.service
         val fetchRestaurantsCall = retrofitService.getAllRestaurants()

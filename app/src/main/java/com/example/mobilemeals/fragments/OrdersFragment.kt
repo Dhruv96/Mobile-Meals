@@ -43,6 +43,7 @@ class OrdersFragment : Fragment() {
         getUserOrders()
     }
 
+    // GETTING LOGGED IN USER'S ORDER
     private fun getUserOrders() {
         println("Fetching Orders")
         val mPrefs = requireContext().getSharedPreferences("myPref", Context.MODE_PRIVATE)

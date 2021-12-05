@@ -74,6 +74,7 @@ class EditProfileFragment : Fragment() {
                                 //val gson = Gson()
                                 //val json = gson.toJson(user)
                                 val json = user.toString()
+                                // updating user in shared preferences
                                 val sharedPref = activity?.getSharedPreferences("myPref", Context.MODE_PRIVATE) ?: return
                                 with (sharedPref.edit()) {
                                     putString("USER", json)

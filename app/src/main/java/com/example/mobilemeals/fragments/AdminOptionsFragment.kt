@@ -27,14 +27,17 @@ class AdminOptionsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Go to add restaurant
         add_restaurant.setOnClickListener {
            it.findNavController().navigate(R.id.action_adminOptionsFragment_to_addRestaurantFragment)
         }
 
+        // Go to add meal fragment
         add_meal.setOnClickListener {
             it.findNavController().navigate(R.id.action_adminOptionsFragment_to_addMealFragment)
         }
 
+        // Go too view restaurants fragment
         view_restaurants.setOnClickListener {
             it.findNavController().navigate(R.id.action_adminOptionsFragment_to_viewRestaurantsFragment)
         }

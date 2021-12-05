@@ -61,6 +61,7 @@ class AddRestaurantFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (arguments != null) {
+            // setting previous passed object details
             restaurant = requireArguments().getSerializable(RESTAURANT) as Restaurant
             restaurant_name.setText(restaurant.name)
             restaurant_address.setText(restaurant.address)

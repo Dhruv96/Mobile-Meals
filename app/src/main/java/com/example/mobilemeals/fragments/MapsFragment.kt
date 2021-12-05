@@ -116,6 +116,8 @@ class MapsFragment : Fragment() {
         }
     }
 
+
+    // Getting restaurant details for map
     private fun fetchRestaurantDetails() {
         val restaurantCall = retrofitService.getSpecificRestaurant(postingOrderBody.order.restaurant_id)
         restaurantCall.enqueue(object: Callback<GetSpecificRestaurantResponse> {
