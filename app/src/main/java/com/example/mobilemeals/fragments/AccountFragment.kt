@@ -10,6 +10,7 @@ import com.example.mobilemeals.R
 import com.example.mobilemeals.adapters.AccountAdapter
 import kotlinx.android.synthetic.main.fragment_account.*
 
+// This fragment is opened when user selects the account tab in Bottom navigation bar
 class AccountFragment : Fragment() {
 
     val listOptions = listOf<String>("Edit Profile", "Orders", "Logout")

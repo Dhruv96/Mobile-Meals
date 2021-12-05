@@ -11,6 +11,7 @@ import com.example.mobilemeals.R
 import kotlinx.android.synthetic.main.fragment_admin_options.*
 
 
+// This fragment is opened when admin logs in, here I have used navhost fragment to open other fragments
 class AdminOptionsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

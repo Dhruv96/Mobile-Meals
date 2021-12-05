@@ -20,7 +20,7 @@ import retrofit2.Call
 import retrofit2.Response
 import javax.security.auth.callback.Callback
 
-
+// This fragment is opened when user selects to rate any restaurant
 class RatingFragment : Fragment() {
 
     lateinit var user: UserLoginResponse
@@ -61,6 +61,7 @@ class RatingFragment : Fragment() {
                 if(userFeedback != "") {
                     val userRating = UserRating("", user._id, rating, userFeedback, restaurantId)
                     val submit_rating_call = retrofitService.addNewRating(userRating)
+                    // submitting rating by API CAll
                     submit_rating_call.enqueue(object: retrofit2.Callback<ResponseBody> {
                         override fun onResponse(
                             call: Call<ResponseBody>,

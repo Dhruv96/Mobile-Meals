@@ -21,6 +21,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+// This fragment is opened when user selects the credit card as payment mode.
 
 class CreditCardFragment : Fragment() {
     val retrofitService = HelperMethods.service

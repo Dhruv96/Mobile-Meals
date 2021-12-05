@@ -34,12 +34,14 @@ class HelperMethods {
 
     companion object
     {
+        // Get retrofit service
         val service = Retrofit.Builder()
             .baseUrl(getIpAddress())
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .build()
             .create(RetrofitService::class.java)
 
+        // reads the ip adress from txt file in assets and returns it
         fun getIpAddress(): String {
             var ipaddress = ""
             val context = GlobalApplication.getAppContext()
@@ -57,6 +59,7 @@ class HelperMethods {
         }
 
 
+        // transform edittext into timepicker
         fun EditText.transformIntoTimePicker(context: Context) {
             isFocusableInTouchMode = false
             isClickable = true
@@ -98,6 +101,7 @@ class HelperMethods {
             return df.format(number).toDouble()
         }
 
+        // api call to clear user's cart
         fun clearCartCall(userId: String, context: Context, myFunc: Unit){
             val service = service
             val clearCartCall = service.clearCart(userId)
@@ -126,6 +130,7 @@ class HelperMethods {
             })
         }
 
+        // get latitude and longitude for map from address
         fun getLocationFromAddress(context: Context?, strAddress: String?): LatLng? {
             print(strAddress)
             val coder = Geocoder(context)
@@ -150,6 +155,7 @@ class HelperMethods {
             return p1
         }
 
+        // open a fragment based on success response
         fun openOrderSuccess(context: Context, bodyForPostingOrder: BodyForPostingOrder) {
             val mapsFragment = MapsFragment()
             val bundle = Bundle()

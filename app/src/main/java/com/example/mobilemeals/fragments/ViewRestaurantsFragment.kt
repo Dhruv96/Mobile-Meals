@@ -19,6 +19,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
+// This fragment is opened when admin selects the view restaurants from the admin options
 class ViewRestaurantsFragment : Fragment() {
 
 

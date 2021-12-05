@@ -21,6 +21,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
+// This fragment is opened when user selects any restaurant on home screen.
+// This fragment fetches all the dishes of the selected restaurant
+
 class ViewDishesFragment : Fragment() {
 
     lateinit var restaurant: Restaurant

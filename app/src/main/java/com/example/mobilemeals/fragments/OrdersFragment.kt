@@ -22,9 +22,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
+// This fragment is opened when user selects the orders in the account tab
 class OrdersFragment : Fragment() {
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

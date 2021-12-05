@@ -19,7 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
+// This fragment is opened when user logs in
 class HomeFragment : Fragment() {
 
     var favouriteRestaurants: List<Restaurant> = mutableListOf()
@@ -41,6 +41,7 @@ class HomeFragment : Fragment() {
         getFavouriteRestaurants()
     }
 
+    // FETCHING ALL FAVORITE RESTAURANTS FROM SQLITE
     private fun getFavouriteRestaurants() {
         AsyncTask.execute { // Insert Data
             val database = AppDatabase.getInstance(requireContext())
@@ -49,7 +50,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    // FETCHING ALL RESTAURANTS
+    // FETCHING ALL RESTAURANTS FROM MONGODB
     private fun getAllRestaurants() {
         val getRestaurantsCall = HelperMethods.service.getAllRestaurants()
         getRestaurantsCall.enqueue(object: Callback<GetAllRestaurantsResponse>{

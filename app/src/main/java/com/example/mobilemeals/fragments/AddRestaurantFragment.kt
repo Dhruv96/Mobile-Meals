@@ -30,6 +30,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
+
+// This fragment is opened when admin tries to add or edit any restaurant
 class AddRestaurantFragment : Fragment() {
     lateinit var restaurant: Restaurant
     companion object {

@@ -40,7 +40,8 @@ import com.google.android.gms.maps.model.PatternItem
 import kotlinx.android.synthetic.main.fragment_maps.*
 import java.util.*
 
-
+// This fragment is opened when order is placed. It shows location of restaurant as well as user's location
+// along with order summary
 class MapsFragment : Fragment() {
 
     lateinit var postingOrderBody: BodyForPostingOrder
@@ -129,6 +130,7 @@ class MapsFragment : Fragment() {
                 {
                     if(response.body() != null) {
                         restaurant = response.body()!!.restaurant
+                        // This would trigger the onMapReady Callback
                         mapFragment?.getMapAsync(callback)
                         println("Map Callback should be called now")
                     }

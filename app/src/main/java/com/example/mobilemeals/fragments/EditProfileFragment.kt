@@ -20,6 +20,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+// This fragment is opened when user selects edit profile in account tab
 class EditProfileFragment : Fragment() {
 
     lateinit var mPrefs: SharedPreferences

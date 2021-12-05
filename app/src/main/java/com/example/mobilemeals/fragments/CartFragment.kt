@@ -36,6 +36,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
+// This fragment is opened when user selects the cart tab in bottom navigation bar
 class CartFragment : Fragment(), CartAdapter.EventListener {
     private val YOUR_CLIENT_ID = "AaycaMU0AYrl6Sotrj78RaBB2MdGPs6Lajf5ynnYA8HDbgSe4i5uhTxuKIQ81yhiJ_W21QhDxdlkmXUN"
     lateinit  var mPrefs: SharedPreferences

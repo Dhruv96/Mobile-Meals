@@ -5,8 +5,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
-
-
+// interface to store all the routes
 interface RetrofitService {
     @POST("/user/signin")
     fun signIn(@Body user: User): Call<UserLoginResponse>

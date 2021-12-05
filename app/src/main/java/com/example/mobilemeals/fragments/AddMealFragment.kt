@@ -27,6 +27,7 @@ import retrofit2.Response
 import java.util.*
 
 
+// This fragment is opened when admin tries to add or edit any meal/dish
 class AddMealFragment : Fragment() {
 
     val retrofitService = HelperMethods.service
